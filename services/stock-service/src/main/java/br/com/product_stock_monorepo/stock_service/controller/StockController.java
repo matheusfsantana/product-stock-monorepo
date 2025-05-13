@@ -3,9 +3,7 @@ package br.com.product_stock_monorepo.stock_service.controller;
 import br.com.product_stock_monorepo.stock_service.model.Stock;
 import br.com.product_stock_monorepo.stock_service.model.dto.StockItemDTO;
 import br.com.product_stock_monorepo.stock_service.service.StockService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +25,17 @@ public class StockController {
             stockItems.add(new StockItemDTO(item.getId(), "", item.getQuantity()));
         });
         return stockItems;
+    }
+
+    @PostMapping("/increase")
+    public StockItemDTO increaseStockItem(@RequestBody IncreaseDecreaseRequest increaseDecreaseRequest){
+        Stock stockItem = this.stockService.increaseStock(increaseDecreaseRequest.getProductId(), increaseDecreaseRequest.getAmount());
+        return new StockItemDTO(stockItem.getId(), "", stockItem.getQuantity());
+    }
+
+    @PostMapping("/decrease")
+    public StockItemDTO decreaseStockItem(@RequestBody IncreaseDecreaseRequest increaseDecreaseRequest){
+        Stock stockItem = this.stockService.decreaseStock(increaseDecreaseRequest.getProductId(), increaseDecreaseRequest.getAmount());
+        return new StockItemDTO(stockItem.getId(), "", stockItem.getQuantity());
     }
 }

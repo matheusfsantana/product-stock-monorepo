@@ -17,4 +17,18 @@ public class StockService {
     public List<Stock> listAll(){
         return this.stockRepository.findAll();
     }
+
+    public Stock increaseStock(int productId, int increaseAmount){
+        Stock item = this.stockRepository.findByProductId((productId));
+        item.setQuantity(item.getQuantity() + increaseAmount);
+        this.stockRepository.save(item);
+        return item;
+    }
+
+    public Stock decreaseStock(int productId, int decreaseAmount){
+        Stock item = this.stockRepository.findByProductId((productId));
+        item.setQuantity(item.getQuantity() - decreaseAmount);
+        this.stockRepository.save(item);
+        return item;
+    }
 }
