@@ -1,4 +1,4 @@
-product-stock-monorepo/
+```product-stock-monorepo/
 ├── README.md
 ├── services/
 │   ├── product-service-ruby/
@@ -15,4 +15,5 @@ product-stock-monorepo/
 │   └── workflows/
 │       ├── product-ci.yml
 │       └── stock-ci.yml
-└── scripts/          
+└── scripts/      
+```    
