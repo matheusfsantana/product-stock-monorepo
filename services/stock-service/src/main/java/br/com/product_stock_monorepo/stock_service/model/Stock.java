@@ -1,5 +1,7 @@
 package br.com.product_stock_monorepo.stock_service.model;
 
+import br.com.product_stock_monorepo.stock_service.exception.InvalidStockQuantityAmountException;
+import br.com.product_stock_monorepo.stock_service.exception.InvalidStockQuantityException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +15,22 @@ public class Stock {
     private int quantity;
     private int productId;
 
+    public void increase(int amount){
+        if (amount < 0) {
+            throw new InvalidStockQuantityAmountException();
+        }
+        this.quantity += amount;
+    }
+
+    public void decrease(int amount){
+        if (amount < 0) {
+            throw new InvalidStockQuantityAmountException();
+        }
+        if (this.quantity - amount < 0){
+            throw new InvalidStockQuantityException(this);
+        }
+        this.quantity -= amount;
+    }
     public int getId() {
         return id;
     }
