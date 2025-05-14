@@ -7,3 +7,16 @@ services:
       POSTGRES_DB: stockdb
     ports:
       - "5432:5432"
+
+  product_service:
+    build:
+      context: ./services/product-service-ruby
+      dockerfile: dev.dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    depends_on:
+      - postgres
